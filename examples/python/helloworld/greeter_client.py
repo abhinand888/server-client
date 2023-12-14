@@ -22,6 +22,7 @@ import helloworld_pb2
 import helloworld_pb2_grpc
 
 
+
 def run():
     # Establish an insecure gRPC channel with the server
 #    with grpc.insecure_channel('172.16.88.251:50051') as channel:
