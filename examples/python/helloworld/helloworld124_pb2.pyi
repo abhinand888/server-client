@@ -6,14 +6,14 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Optional as _Op
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class TrainModelRequest(_message.Message):
-    __slots__ = ("features", "label", "weights")
+    __slots__ = ("features", "weights", "label")
     FEATURES_FIELD_NUMBER: _ClassVar[int]
-    LABEL_FIELD_NUMBER: _ClassVar[int]
     WEIGHTS_FIELD_NUMBER: _ClassVar[int]
+    LABEL_FIELD_NUMBER: _ClassVar[int]
     features: _containers.RepeatedScalarFieldContainer[float]
-    label: float
     weights: _containers.RepeatedScalarFieldContainer[float]
-    def __init__(self, features: _Optional[_Iterable[float]] = ..., label: _Optional[float] = ..., weights: _Optional[_Iterable[float]] = ...) -> None: ...
+    label: float
+    def __init__(self, features: _Optional[_Iterable[float]] = ..., weights: _Optional[_Iterable[float]] = ..., label: _Optional[float] = ...) -> None: ...
 
 class TrainModelResponse(_message.Message):
     __slots__ = ("loss", "updated_weights")

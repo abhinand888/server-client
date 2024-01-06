@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package helloworld;
+
+service PartyA {
+  rpc SendEncryptedGradients (Gradients) returns (EncryptedGradients);
+}
+
+message Gradients {
+  repeated float gradients = 1;
+}
+
+message EncryptedGradients {
+  repeated float gradients = 1;
+}
+

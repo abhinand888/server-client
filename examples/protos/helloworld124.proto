@@ -3,13 +3,13 @@ syntax = "proto3";
 package helloworld;
 
 service LinearRegression {
-  rpc TrainModel(stream TrainModelRequest) returns (stream TrainModelResponse);
+  rpc TrainModel (TrainModelRequest) returns (stream TrainModelResponse);
 }
 
 message TrainModelRequest {
   repeated float features = 1;
-  float label = 2;
-  repeated float weights = 3;
+  repeated float weights = 2;
+  float label = 3;
 }
 
 message TrainModelResponse {

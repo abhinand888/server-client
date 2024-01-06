@@ -41,10 +41,10 @@ def run():
         N2 = 16
         
        
-        response = stub.SendSum(helloworld_pb2.ArithRequest(Num1=N1, Num2=N2, Id=2))
+        response = stub.SendSum(helloworld_pb2.ArithRequest(Num1=N1, Num2=N2, Id=1))
         print("Greeter sum received: " + str(response.Result))
         
-        response = stub.SendDiff(helloworld_pb2.ArithRequest(Num1=N1, Num2=N2, Id=2))
+        response = stub.SendDiff(helloworld_pb2.ArithRequest(Num1=N1, Num2=N2, Id=1))
         print("Greeter Difference received: " + str(response.Result))
 
 if __name__ == "__main__":

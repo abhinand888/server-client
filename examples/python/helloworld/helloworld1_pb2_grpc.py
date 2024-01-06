@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import helloworld_pb2 as helloworld__pb2
+import helloworld1_pb2 as helloworld1__pb2
 
 
-class LinearRegressionStub(object):
+class PartyAStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,42 +14,42 @@ class LinearRegressionStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.TrainModel = channel.stream_stream(
-                '/helloworld.LinearRegression/TrainModel',
-                request_serializer=helloworld__pb2.TrainModelRequest.SerializeToString,
-                response_deserializer=helloworld__pb2.TrainModelResponse.FromString,
+        self.SendEncryptedGradients = channel.unary_unary(
+                '/helloworld.PartyA/SendEncryptedGradients',
+                request_serializer=helloworld1__pb2.Gradients.SerializeToString,
+                response_deserializer=helloworld1__pb2.EncryptedGradients.FromString,
                 )
 
 
-class LinearRegressionServicer(object):
+class PartyAServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def TrainModel(self, request_iterator, context):
+    def SendEncryptedGradients(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_LinearRegressionServicer_to_server(servicer, server):
+def add_PartyAServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'TrainModel': grpc.stream_stream_rpc_method_handler(
-                    servicer.TrainModel,
-                    request_deserializer=helloworld__pb2.TrainModelRequest.FromString,
-                    response_serializer=helloworld__pb2.TrainModelResponse.SerializeToString,
+            'SendEncryptedGradients': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendEncryptedGradients,
+                    request_deserializer=helloworld1__pb2.Gradients.FromString,
+                    response_serializer=helloworld1__pb2.EncryptedGradients.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'helloworld.LinearRegression', rpc_method_handlers)
+            'helloworld.PartyA', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class LinearRegression(object):
+class PartyA(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def TrainModel(request_iterator,
+    def SendEncryptedGradients(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class LinearRegression(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_stream(request_iterator, target, '/helloworld.LinearRegression/TrainModel',
-            helloworld__pb2.TrainModelRequest.SerializeToString,
-            helloworld__pb2.TrainModelResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/helloworld.PartyA/SendEncryptedGradients',
+            helloworld1__pb2.Gradients.SerializeToString,
+            helloworld1__pb2.EncryptedGradients.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
