@@ -21,12 +21,15 @@ import VFL_pb2
 import VFL_pb2_grpc
 
 from threading import Lock
+from threading import Condition
 
 class Greeter(VFL_pb2_grpc.GreeterServicer):
 #    Clients = [0,0]
     Partial = [0.0,0.0]
     lock1 = Lock()
     lock2 = Lock()
+    condition = Condition()
+
     remaining=0
 #    lock2 = Lock()
     
@@ -50,8 +53,12 @@ class Greeter(VFL_pb2_grpc.GreeterServicer):
              with self.lock1:
                 self.remaining-=1
 
-          while self.remaining>0:
-               pass            
+          if self.remaining>0:
+               with self.condition:
+                    self.condition.wait() 
+          else:
+               with self.condition:
+                    self.condition.notify()          
 #          if self.remaining == 0:
 #              with self.lock1:
 #                 self.remaining=2 

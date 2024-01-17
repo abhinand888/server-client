@@ -21,23 +21,47 @@ import grpc
 import VFL_pb2
 import VFL_pb2_grpc
 
+#def getpartialsum():
+#    for i in range(101,200):
+#      yield (VFL_pb2.partialsum(num=i,Id=1))
+
+#def getpartialsum(i):
+#      yield (VFL_pb2.partialsum(num=i,Id=2))
+
 def getpartialsum():
-    for i in range(1,100):
+    for i in range(100001,200001):
       yield (VFL_pb2.partialsum(num=i,Id=2))
 
 def run():
     # Establish an insecure gRPC channel with the server
-#    with grpc.insecure_channel('172.16.88.251:50051') as channel:
     with grpc.insecure_channel('127.0.0.1:50051') as channel:
+#    with grpc.insecure_channel('127.0.0.1:50051') as channel:
 #        n1 = 1,n2 = 11,n3 = 21,n4 = 31
          stub = VFL_pb2_grpc.GreeterStub(channel)
-         partialiterator=getpartialsum()
 #         breakpoint()
 #        response = stub.Aggregate(VFL_pb2.ArithRequest(Num1=N1, Num2=N2, Id=1))
 #        print("Greeter sum received: " + str(response.Result))
+#         response = stub.Aggregate(VFL_pb2.partialsum(num=20,Id=2))         
+
+
+#         partialiterator=getpartialsum(100)
+#         response = stub.Aggregate(partialiterator)         
+#         for i in response:
+#                 print("Loss i= "+ str(i.result))
+#                 response2 = stub.Aggregate(getpartialsum(i.result))         
+#                 for j in response2:
+#                    print("Loss j= "+ str(j.result))
+ 
+
+         partialiterator=getpartialsum()
          response = stub.Aggregate(partialiterator)         
+         counter=0
          for i in response:
-              print("Loss = "+ str(i.result))
+              counter+=1
+              if counter > 99990:
+                  print("Loss = "+ str(i.result))
+
+                 
 if __name__ == "__main__":
     logging.basicConfig()
     run()
