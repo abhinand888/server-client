@@ -36,7 +36,7 @@ async def run() -> None:
 
         # Direct read from the stub
         hello_stream = stub.sayHello(
-            hellostreamingworld_pb2.HelloRequest(name="you")
+            hellostreamingworld_pb2.HelloRequest(name="me")
         )
         while True:
             response = await hello_stream.read()
